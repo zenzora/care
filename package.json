@@ -1,0 +1,12 @@
+{
+  "title": "CAre",
+  "name": "care",
+  "version": "0.0.1",
+  "description": "Certificate Authority Auditing Tool",
+  "main": "lib/main.js",
+  "author": "Jake Berkowsky, Neha Rana",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT"
+}
