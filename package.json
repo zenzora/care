@@ -8,5 +8,13 @@
   "engines": {
     "firefox": ">=38.0a1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "preferences": [{
+    "name": "alert_on_new",
+    "title": "Alert for new CA",
+    "description": "Show an alert whenever a CA is encountered for the first time",
+    "type": "bool",
+    "value": true
+  }
+  ]
 }
