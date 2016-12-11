@@ -1,7 +1,7 @@
 {
   "title": "CAre",
   "name": "care",
-  "version": "0.0.2",
+  "version": "0.1.1",
   "description": "Certificate Authority Auditing Tool",
   "main": "lib/main.js",
   "author": "Jake Berkowsky, Neha Rana",
@@ -15,6 +15,13 @@
     "description": "Show an alert whenever a CA is encountered for the first time",
     "type": "bool",
     "value": true
+  },
+  {
+    "name": "alert_percentage_threshold",
+    "title": "Alert Percentage Threshold",
+    "description": "Show alerts for CAs that are seen less than this percentage of total. Use 0 to disable. Recommend not turning on till after a learning period",
+    "type": "integer",
+    "value": 0
   },
   {
     "name": "report_cas",

@@ -29,7 +29,9 @@ var Request = require("sdk/request").Request;
 var recentLocationChange = 0;
 var gBrowser = windowUtils.getMostRecentBrowserWindow().getBrowser();
 
-
+if (typeof(ss.storage.totalSightings) == 'undefined') {
+    ss.storage.totalSightings = 0;
+}
 
 var onLocationChange = function(webProgress, request,location,flags){
     if(flags !== 1) {
@@ -50,6 +52,7 @@ var onSecurityChange = function(webProgress, request, state){
               data.fingerprint = rootInfo.sha256Fingerprint;
               data.name = rootInfo.issuerOrganization;
               data.times_seen = 1;
+              ss.storage.totalSightings += 1;
               data.alert_status = 'default';
               //Alert if CA is new and option is enabled
               if (prefs.prefs['alert_on_new']) {
@@ -60,13 +63,19 @@ var onSecurityChange = function(webProgress, request, state){
               }
               reportCA(data);
           } else if(request && recentLocationChange){
+              data.times_seen += 1;
               if(data.alert_status == 'always'){
                   notifications.notify({
                       title: "CA Alert",
                       text: "This site uses the CA " + data.name
                   });
+              }else if((prefs.prefs['alert_percentage_threshold'] != 0 && (data.times_seen/ss.storage.totalSightings < prefs.prefs['alert_percentage_threshold']/100)) && data.alert_status != 'never'){
+                  notifications.notify({
+                      title: "Uncommon CA",
+                      text: "This CA (" + data.name + ") is under the alert percentage threshold. \n This CA: "+ Math.round(data.times_seen/ss.storage.totalSightings * 100) + "%\n Threshold: "+ (prefs.prefs['alert_percentage_threshold']) + "%"
+                  });
               }
-              data.times_seen += 1;
+              ss.storage.totalSightings += 1;
               reportCA(data);
           }
           recentLocationChange = 0;
