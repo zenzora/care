@@ -1,2 +1,4 @@
 #CAre
 Certificate Authority Auditing Tool
+
+CAre is a Firefox browser addon used to monitor certificate authorities. A user has quick access to the current tabs root CA via a button on the top of the screen. The user has access to a statistics page which displays the names and SHA-256 fingerprints of the Root CAs as well as how often they have been seen. From this statistics page, the user can select specific CAs to alert on when encountered. There is an option for users to be alerted to CAs that they have never seen before as well as the ability for a user to report anonymized statistics for use in future research.
